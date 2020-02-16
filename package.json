@@ -1,13 +1,17 @@
 {
   "name": "explorer",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm run pugged & ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "pugged": "pug src -P -w",
+    "electron-build": "ng build --prod && electron .",
+    "pack": "electron-packager . --platform=darwin"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +23,11 @@
     "@angular/platform-browser": "~8.2.13",
     "@angular/platform-browser-dynamic": "~8.2.13",
     "@angular/router": "~8.2.13",
+    "@types/jquery": "^3.3.32",
+    "dompurify": "^2.0.8",
+    "jquery": "^3.4.1",
+    "jsdom": "^16.1.0",
+    "request-promise": "^4.2.5",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
@@ -28,10 +37,12 @@
     "@angular/cli": "~8.3.18",
     "@angular/compiler-cli": "~8.2.13",
     "@angular/language-service": "~8.2.13",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^8.9.5",
     "codelyzer": "^5.0.0",
+    "electron": "^7.1.10",
+    "electron-packager": "^14.2.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
@@ -42,6 +53,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "pug-cli": "^1.0.0-alpha6"
   }
 }

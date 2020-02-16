@@ -1,0 +1,130 @@
+.wrapper
+  .content
+    #introText Введите Waves адрес
+    .searchData
+      input(type="text", #addressInput="", id="searchDataInp" placeholder="Waves адрес" value='3PAYW61WKGU1PJcn8m9EdDEEgbabsi5DGgw')
+      button(type="button", class="blick_btn", (click)="getDataByAddress(addressInput)") Стартуем!
+    #address
+    #goal([innerHtml]="htmlToAdd")
+      //- .loader
+        .sticks
+          .stick
+          .stick
+          .stick
+          .stick
+          .stick
+          .stick
+          .stick
+          .stick
+        svg
+          circle(cx='50%' cy='50%' r='150')
+        #upbutton
+  .filter
+      #search
+        .searchData
+          .cross
+            svg(width="12" height="12")
+              path(d="M0 0 L 12 12 M12 0 L 0 12" stroke="black" stroke-width="2")
+          input(type="text" id="searchDataInp" class='inspectInput' placeholder="Данные для поиска")
+          button(type="button" class="blick_btn inspectBtn") Искать
+          button(type="button" class="blick_btn" id='additionalMenu')
+            .burg
+            .burg
+            .burg
+      .buttons-form
+        #buttons
+          button(type="button" class='button' id='balance')
+            span(class='bal-btn') баланс аккаунта
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='all')
+            span(class='all-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='deposit')
+            span(class='dep-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='send')
+            span(class='send-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='7')
+            span(class='exch-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='8')
+            span(class='leasing-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='9')
+            span(class='cancLeas-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='massSend')
+            span(class='massSend-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='massReceiv')
+            span(class='massReceive-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='3')
+            span(class='assetCreation-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='5')
+            span(class='assetReissue-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='6')
+            span(class='burn-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='10')
+            span(class='alias-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='12')
+            span(class='data-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='13')
+            span(class='script-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='15')
+            span(class='assetScript-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='14')
+            span(class='sponsor-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='16')
+            span(class='scriptCall-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+          button(type="button" class='button clickMe' id='else')
+            span(class='else-btn') пусто
+            svg(class='svg_button')
+              rect(class='rect_button')
+        .extract
+          button(type="button" class="extractMe blick_btn" id='csvAll') Экспорт всех транзакци
+          button(type="button" class="extractMe blick_btn" id='csvDeposit') Экспорт вводо
+          button(type="button" class="extractMe blick_btn" id='csvWithdrawal') Экспорт выводо
+          button(type="button" class="extractMe blick_btn" id='csvEx') Экспорт обмено
+
+script(src="index.js")
+
+script.
+  $('.content').scroll(function() {
+      if ($('.content').scrollTop() > 100) {
+          if ($('#upbutton').is(':hidden')) {
+              $('#upbutton').css({opacity : 0.8}).fadeIn('slow');
+          }
+      } else { $('#upbutton').stop(true, false).fadeOut('fast'); }
+  });
+  $('#upbutton').click(function() {
+      $('.content').stop().animate({scrollTop : 0}, 500);
+  });

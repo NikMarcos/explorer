@@ -1,0 +1,148 @@
+
+<div class="wrapper">
+  <div class="content">
+    <div id="introText">Введите Waves адрес</div>
+    <div class="searchData">
+      <input type="text" #addressInput="" id="searchDataInp" placeholder="Waves адрес" value="3PAYW61WKGU1PJcn8m9EdDEEgbabsi5DGgw"/>
+      <button class="blick_btn" type="button" (click)="getDataByAddress(addressInput)">Стартуем!</button>
+    </div>
+    <div id="address"></div>
+    <div id="goal" [innerHtml]="htmlToAdd"></div>
+  </div>
+  <div class="filter">
+    <div id="search">
+      <div class="searchData">
+        <div class="cross">
+          <svg width="12" height="12">
+            <path d="M0 0 L 12 12 M12 0 L 0 12" stroke="black" stroke-width="2"></path>
+          </svg>
+        </div>
+        <input class="inspectInput" type="text" id="searchDataInp" placeholder="Данные для поиска"/>
+        <button class="blick_btn inspectBtn" type="button">Искать</button>
+        <button class="blick_btn" type="button" id="additionalMenu">
+          <div class="burg"></div>
+          <div class="burg"></div>
+          <div class="burg"></div>
+        </button>
+      </div>
+    </div>
+    <div class="buttons-form">
+      <div id="buttons">
+        <button class="button" type="button" id="balance"><span class="bal-btn">баланс аккаунта</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="all"><span class="all-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="deposit"><span class="dep-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="send"><span class="send-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="7"><span class="exch-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="8"><span class="leasing-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="9"><span class="cancLeas-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="massSend"><span class="massSend-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="massReceiv"><span class="massReceive-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="3"><span class="assetCreation-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="5"><span class="assetReissue-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="6"><span class="burn-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="10"><span class="alias-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="12"><span class="data-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="13"><span class="script-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="15"><span class="assetScript-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="14"><span class="sponsor-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="16"><span class="scriptCall-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+        <button class="button clickMe" type="button" id="else"><span class="else-btn">пусто</span>
+          <svg class="svg_button">
+            <rect class="rect_button"></rect>
+          </svg>
+        </button>
+      </div>
+      <div class="extract">
+        <button class="extractMe blick_btn" type="button" id="csvAll">Экспорт всех транзакци</button>
+        <button class="extractMe blick_btn" type="button" id="csvDeposit">Экспорт вводо</button>
+        <button class="extractMe blick_btn" type="button" id="csvWithdrawal">Экспорт выводо</button>
+        <button class="extractMe blick_btn" type="button" id="csvEx">Экспорт обмено</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="index.js"></script>
+<script>
+  $('.content').scroll(function() {
+      if ($('.content').scrollTop() > 100) {
+          if ($('#upbutton').is(':hidden')) {
+              $('#upbutton').css({opacity : 0.8}).fadeIn('slow');
+          }
+      } else { $('#upbutton').stop(true, false).fadeOut('fast'); }
+  });
+  $('#upbutton').click(function() {
+      $('.content').stop().animate({scrollTop : 0}, 500);
+  });
+</script>
