@@ -370,7 +370,7 @@ addEventListener('message', ({ data }) => {
         htmlDiv += `<div class="6 bal ${obj['timestamp']}"
         id="${listAssets[obj['assetId']][0].toLowerCase()}${new Date(obj['timestamp']).toLocaleDateString()}">`
       }
-      htmlDiv += `<strong>Сжигание ассета: </strong>
+      htmlDiv += `<strong>Asset burning: </strong>
       ${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${listAssets[obj['assetId']][0]}<br>
       <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>

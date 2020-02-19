@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef  } from '@angular/core';
 import { AccountDataService } from '../services/account_service/account-data.service';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import * as $ from 'jquery';
@@ -12,9 +12,13 @@ import * as $ from 'jquery';
   encapsulation: ViewEncapsulation.None,
 })
 export class MainComponent implements OnInit {
+  @ViewChild("filter", {static: false}) filterTab: ElementRef;
   transactions: Object[] = [];
   ids: Object = {};
   htmlToAdd: SafeHtml;
+  clicked: boolean = false;
+  allTxs: string;
+  id6: string = "Id 6";
 
 
 
@@ -48,7 +52,10 @@ export class MainComponent implements OnInit {
 
           worker.onmessage = ({ data }) => {
             // this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(data);
-            $('#goal').html(data);
+            this.allTxs = data;
+            $('#goal').html(this.allTxs);
+            this.filterTab.nativeElement.style.display = 'block';
+            this.clicked = false;
           };
         }
       } else {
@@ -65,21 +72,28 @@ export class MainComponent implements OnInit {
 
   }
 
-  getDataByAddress(address: HTMLInputElement){
-  //   $('#goal').append(`<div class="loader"><div class="sticks">
-  //     <div class="stick"></div>
-  //     <div class="stick"></div>
-  //     <div class="stick"></div>
-  //     <div class="stick"></div>
-  //     <div class="stick"></div>
-  //     <div class="stick"></div>
-  //     <div class="stick"></div>
-  //     <div class="stick"></div>
-  //   </div>
-  //   <svg>
-  //     <circle cx='50%' cy='50%' r='150'></circle>
-  //   </svg>
-  // </div></div>`);
+  test(balance: HTMLInputElement){
+    let elementId = balance.id;
+    console.log(elementId);
+    switch (elementId) {
+      case 'all':
+        // $('#goal').html(this.allTxs);
+        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.allTxs);
+        break;
+      case '6':
+        // $('#goal').html(this.id6);
+        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.id6);
+        break;
+      // case 5:
+      //   alert( 'Перебор' );
+      //   break;
+      default:
+        alert( "Нет таких значений" );
+    }
+
+  }
+
+  getDataByAddress(address: HTMLInputElement, event: any){
 
     this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(`
     <div class='loader'>
@@ -97,6 +111,7 @@ export class MainComponent implements OnInit {
         <circle cx='50%' cy='50%' r='150'></circle>
       </svg>
   </div>`);
+    this.clicked = true;
     this.AccountService.rawData(address.value);
   }
 

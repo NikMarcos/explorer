@@ -3,23 +3,10 @@
     #introText Введите Waves адрес
     .searchData
       input(type="text", #addressInput="", id="searchDataInp" placeholder="Waves адрес" value='3PAYW61WKGU1PJcn8m9EdDEEgbabsi5DGgw')
-      button(type="button", class="blick_btn", (click)="getDataByAddress(addressInput)") Стартуем!
+      button(type="button", class="blick_btn", [disabled]="clicked", (click)="getDataByAddress(addressInput)") Стартуем!
     #address
     #goal([innerHtml]="htmlToAdd")
-      //- .loader
-        .sticks
-          .stick
-          .stick
-          .stick
-          .stick
-          .stick
-          .stick
-          .stick
-          .stick
-        svg
-          circle(cx='50%' cy='50%' r='150')
-        #upbutton
-  .filter
+  .filter(#filter="")
       #search
         .searchData
           .cross
@@ -33,87 +20,87 @@
             .burg
       .buttons-form
         #buttons
-          button(type="button" class='button' id='balance')
-            span(class='bal-btn') баланс аккаунта
+          button(type="button" class='button' id='balance', #balance="", (click)="test(balance)")
+            span(class='bal-btn') Account balance
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='all')
-            span(class='all-btn') пусто
+          button(type="button" class='button clickMe' id='all', #all="", (click)="test(all)")
+            span(class='all-btn') All
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='deposit')
-            span(class='dep-btn') пусто
+          button(type="button" class='button clickMe' id='deposit', #deposit="", (click)="test(deposit)")
+            span(class='dep-btn') Deposit
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='send')
-            span(class='send-btn') пусто
+          button(type="button" class='button clickMe' id='send', #send="", (click)="test(send)")
+            span(class='send-btn') Withdraw
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='7')
-            span(class='exch-btn') пусто
+          button(type="button" class='button clickMe' id='7', #id7="", (click)="test(id7)")
+            span(class='exch-btn') Trading
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='8')
-            span(class='leasing-btn') пусто
+          button(type="button" class='button clickMe' id='8', #id8="", (click)="test(id8)")
+            span(class='leasing-btn') Leasing
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='9')
-            span(class='cancLeas-btn') пусто
+          button(type="button" class='button clickMe' id='9', #id9="", (click)="test(id9)")
+            span(class='cancLeas-btn') Canceled leasing
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='massSend')
-            span(class='massSend-btn') пусто
+          button(type="button" class='button clickMe' id='massSend', #massSend="", (click)="test(massSend)")
+            span(class='massSend-btn') Mass withdrawing
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='massReceiv')
-            span(class='massReceive-btn') пусто
+          button(type="button" class='button clickMe' id='massReceiv', #balance="", (click)="test(balance)")
+            span(class='massReceive-btn') Mass depositing
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='3')
-            span(class='assetCreation-btn') пусто
+          button(type="button" class='button clickMe' id='3', #id3="", (click)="test(id3)")
+            span(class='assetCreation-btn') Asset creation
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='5')
-            span(class='assetReissue-btn') пусто
+          button(type="button" class='button clickMe' id='5', #id5="", (click)="test(id5)")
+            span(class='assetReissue-btn') Asset reissuing
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='6')
-            span(class='burn-btn') пусто
+          button(type="button" class='button clickMe' id='6', #id6="", (click)="test(id6)")
+            span(class='burn-btn') Asset burning
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='10')
-            span(class='alias-btn') пусто
+          button(type="button" class='button clickMe' id='10', #id10="", (click)="test(id10)")
+            span(class='alias-btn') Alias cretion
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='12')
-            span(class='data-btn') пусто
+          button(type="button" class='button clickMe' id='12', #id12="", (click)="test(id12)")
+            span(class='data-btn') Data transaction
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='13')
-            span(class='script-btn') пусто
+          button(type="button" class='button clickMe' id='13', #id13="", (click)="test(id13)")
+            span(class='script-btn') Script transaction
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='15')
-            span(class='assetScript-btn') пусто
+          button(type="button" class='button clickMe' id='15', #id15="", (click)="test(id15)")
+            span(class='assetScript-btn') Asset script
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='14')
-            span(class='sponsor-btn') пусто
+          button(type="button" class='button clickMe' id='14', #id14="", (click)="test(id14)")
+            span(class='sponsor-btn') Sponsorship
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='16')
-            span(class='scriptCall-btn') пусто
+          button(type="button" class='button clickMe' id='16', #id16="", (click)="test(id16)")
+            span(class='scriptCall-btn') Invoke script
             svg(class='svg_button')
               rect(class='rect_button')
-          button(type="button" class='button clickMe' id='else')
-            span(class='else-btn') пусто
+          button(type="button" class='button clickMe' id='else', #idElse="", (click)="test(idElse)")
+            span(class='else-btn') Else
             svg(class='svg_button')
               rect(class='rect_button')
         .extract
-          button(type="button" class="extractMe blick_btn" id='csvAll') Экспорт всех транзакци
-          button(type="button" class="extractMe blick_btn" id='csvDeposit') Экспорт вводо
-          button(type="button" class="extractMe blick_btn" id='csvWithdrawal') Экспорт выводо
-          button(type="button" class="extractMe blick_btn" id='csvEx') Экспорт обмено
+          button(type="button" class="extractMe blick_btn" id='csvAll', #balance="", (click)="test(balance)") Экспорт всех транзакци
+          button(type="button" class="extractMe blick_btn" id='csvDeposit', #balance="", (click)="test(balance)") Экспорт вводо
+          button(type="button" class="extractMe blick_btn" id='csvWithdrawal', #balance="", (click)="test(balance)") Экспорт выводо
+          button(type="button" class="extractMe blick_btn" id='csvEx', #balance="", (click)="test(balance)") Экспорт обмено
 
 script(src="index.js")
 
