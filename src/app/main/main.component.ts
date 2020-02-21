@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, NgZone  } from '@angular/core';
 import { AccountDataService } from '../services/account_service/account-data.service';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import * as $ from 'jquery';
@@ -61,7 +61,7 @@ export class MainComponent implements OnInit {
 
 
 
-  constructor(private AccountService: AccountDataService, private sanitizer: DomSanitizer) {
+  constructor(private AccountService: AccountDataService, private sanitizer: DomSanitizer, private zone: NgZone) {
     this.AccountService.allTransactions.subscribe((trans: Object[]) => {
       this.transactions = trans;
       this.countAllTxs = this.transactions.length - 1
@@ -83,9 +83,7 @@ export class MainComponent implements OnInit {
 
     this.AccountService.allAssets.subscribe((trans: Object) => {
       this.ids = trans;
-      // console.log(this.ids);
       if (typeof Worker !== 'undefined') {
-        // Create a new
         const worker = new Worker('./html-trans.worker', { type: 'module' });
         if(this.transactions.length > 0 && this.ids){
           worker.postMessage({transactions: this.transactions, assets: this.ids});
@@ -104,7 +102,6 @@ export class MainComponent implements OnInit {
                 sepWorker.postMessage({transactions: this.transactions, assets: this.ids});
 
                 sepWorker.onmessage = ({ data }) => {
-                  // $('#goal').html(this.allTxs);
                   this.type1 = data['id1'][0];
                   this.typeDeposit = data['idDeposit'][0];
                   this.typeSend = data['idSend'][0];
@@ -124,6 +121,7 @@ export class MainComponent implements OnInit {
                   this.type16 = data['id16'][0];
                   this.typeElse = data['idElse'][0];
 
+                  this.zone.run(() => {
                   this.countType1 = data['id1'][1];
                   this.countTypeDeposit = data['idDeposit'][1];
                   this.countTypeSend = data['idSend'][1];
@@ -142,9 +140,11 @@ export class MainComponent implements OnInit {
                   this.countType15 = data['id15'][1];
                   this.countType16 = data['id16'][1];
                   this.countTypeElse = data['idElse'][1];
+                  });
+
                   this.filterTab.nativeElement.style.display = 'block';
 
-                  console.log(this.typeElse, this.countTypeElse)
+                  console.log(this.type7, this.countType7)
                 };
 
               }
@@ -237,7 +237,7 @@ export class MainComponent implements OnInit {
 
   }
 
-  getDataByAddress(address: HTMLInputElement, event: any){
+  getDataByAddress(address: HTMLInputElement){
 
     this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(`
     <div class='loader'>
@@ -256,7 +256,7 @@ export class MainComponent implements OnInit {
       </svg>
   </div>`);
     this.checkBtn.nativeElement.disabled = true;
-    // this.id55 = null;
+    this.filterTab.nativeElement.style.display = 'none';
     this.AccountService.rawData(address.value);
   }
 
