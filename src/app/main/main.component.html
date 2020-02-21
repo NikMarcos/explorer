@@ -4,7 +4,7 @@
     <div id="introText">Введите Waves адрес</div>
     <div class="searchData">
       <input type="text" #addressInput="" id="searchDataInp" placeholder="Waves адрес" value="3PAYW61WKGU1PJcn8m9EdDEEgbabsi5DGgw"/>
-      <button class="blick_btn" type="button" [disabled]="clicked" (click)="getDataByAddress(addressInput)">Стартуем!</button>
+      <button class="blick_btn" type="button" #checkBtn="" (click)="getDataByAddress(addressInput)">Стартуем!</button>
     </div>
     <div id="address"></div>
     <div id="goal" [innerHtml]="htmlToAdd"></div>
@@ -28,101 +28,146 @@
     </div>
     <div class="buttons-form">
       <div id="buttons">
-        <button class="button" type="button" id="balance" #balance="" (click)="test(balance)"><span class="bal-btn">Account balance</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="all" #all="" (click)="test(all)"><span class="all-btn">All</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="deposit" #deposit="" (click)="test(deposit)"><span class="dep-btn">Deposit</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="send" #send="" (click)="test(send)"><span class="send-btn">Withdraw</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="7" #id7="" (click)="test(id7)"><span class="exch-btn">Trading</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="8" #id8="" (click)="test(id8)"><span class="leasing-btn">Leasing</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="9" #id9="" (click)="test(id9)"><span class="cancLeas-btn">Canceled leasing</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="massSend" #massSend="" (click)="test(massSend)"><span class="massSend-btn">Mass withdrawing</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="massReceiv" #balance="" (click)="test(balance)"><span class="massReceive-btn">Mass depositing</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="3" #id3="" (click)="test(id3)"><span class="assetCreation-btn">Asset creation</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="5" #id5="" (click)="test(id5)"><span class="assetReissue-btn">Asset reissuing</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="6" #id6="" (click)="test(id6)"><span class="burn-btn">Asset burning</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="10" #id10="" (click)="test(id10)"><span class="alias-btn">Alias cretion</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="12" #id12="" (click)="test(id12)"><span class="data-btn">Data transaction</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="13" #id13="" (click)="test(id13)"><span class="script-btn">Script transaction</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="15" #id15="" (click)="test(id15)"><span class="assetScript-btn">Asset script</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="14" #id14="" (click)="test(id14)"><span class="sponsor-btn">Sponsorship</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="16" #id16="" (click)="test(id16)"><span class="scriptCall-btn">Invoke script</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
-        <button class="button clickMe" type="button" id="else" #idElse="" (click)="test(idElse)"><span class="else-btn">Else</span>
-          <svg class="svg_button">
-            <rect class="rect_button"></rect>
-          </svg>
-        </button>
+        <ng-container *ngIf="allTxs">
+          <button class="button" type="button" id="balance" #balance="" (click)="test(balance)"><span class="bal-btn">Account balance</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="allTxs">
+          <button class="button clickMe" type="button" id="all" #all="" (click)="test(all)"><span class="all-btn">All ( {{ countAllTxs }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="typeDeposit">
+          <button class="button clickMe" type="button" id="deposit" #deposit="" (click)="test(deposit)"><span class="dep-btn">Deposit ( {{ countTypeDeposit }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="typeSend">
+          <button class="button clickMe" type="button" id="send" #send="" (click)="test(send)"><span class="send-btn">Withdraw ( {{ countTypeSend }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type7">
+          <button class="button clickMe" type="button" id="7" #id7="" (click)="test(id7)"><span class="exch-btn">Trading ( {{ countType7 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type8">
+          <button class="button clickMe" type="button" id="8" #id8="" (click)="test(id8)"><span class="leasing-btn">Leasing ( {{ countType8 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type9">
+          <button class="button clickMe" type="button" id="9" #id9="" (click)="test(id9)"><span class="cancLeas-btn">Canceled leasing ( {{ countType9 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="typeMassSend">
+          <button class="button clickMe" type="button" id="massSend" #massSend="" (click)="test(massSend)"><span class="massSend-btn">Mass withdrawing ( {{ countTypeMassSend }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="typeMassReceive">
+          <button class="button clickMe" type="button" id="massReceiv" #balance="" (click)="test(balance)"><span class="massReceive-btn">Mass depositing ( {{ countTypeMassReceive }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type3">
+          <button class="button clickMe" type="button" id="3" #id3="" (click)="test(id3)"><span class="assetCreation-btn">Asset creation ( {{ countType3 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type5">
+          <button class="button clickMe" type="button" id="5" #id5="" (click)="test(id5)"><span class="assetReissue-btn">Asset reissuing ( {{ countType5 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type6">
+          <button class="button clickMe" type="button" id="6" #id6="" (click)="test(id6)"><span class="burn-btn">Asset burning ( {{ countType6 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type10">
+          <button class="button clickMe" type="button" id="10" #id10="" (click)="test(id10)"><span class="alias-btn">Alias cretion  ( {{ countType10 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type12">
+          <button class="button clickMe" type="button" id="12" #id12="" (click)="test(id12)"><span class="data-btn">Data transaction ( {{ countType12 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type13">
+          <button class="button clickMe" type="button" id="13" #id13="" (click)="test(id13)"><span class="script-btn">Script transaction ( {{ countType13 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type15">
+          <button class="button clickMe" type="button" id="15" #id15="" (click)="test(id15)"><span class="assetScript-btn">Asset script ( {{ countType15 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type14">
+          <button class="button clickMe" type="button" id="14" #id14="" (click)="test(id14)"><span class="sponsor-btn">Sponsorship ( {{ countType14 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type16">
+          <button class="button clickMe" type="button" id="16" #id16="" (click)="test(id16)"><span class="scriptCall-btn">Invoke script ( {{ countType16 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="type1">
+          <button class="button clickMe" type="button" id="1" #id1="" (click)="test(id1)"><span class="wavesIss-btn">Waves issuing ( {{ countType1 }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="typeElse">
+          <button class="button clickMe" type="button" id="else" #idElse="" (click)="test(idElse)"><span class="else-btn">Else ( {{ countTypeElse }} )</span>
+            <svg class="svg_button">
+              <rect class="rect_button"></rect>
+            </svg>
+          </button>
+        </ng-container>
       </div>
       <div class="extract">
         <button class="extractMe blick_btn" type="button" id="csvAll" #balance="" (click)="test(balance)">Экспорт всех транзакци</button>

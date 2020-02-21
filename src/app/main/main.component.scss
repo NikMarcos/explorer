@@ -23,7 +23,7 @@ button:focus{
 }
 
 .button{
-  --width: 130px;
+  --width: 310px;
   --height: 30px;
   --begin-color: black;
   --end-color: red;
@@ -71,57 +71,10 @@ button:focus{
 }
 
 
-
-#balance{
-  --width: 180px;
-  --height: 30px;
-}
-
-#all{
-  --width: 220px;
-  --height: 30px;
-}
-
-#else{
-  --width: 110px;
-  --height: 30px;
-}
-
-[id='9']{
-  --width: 180px;
-  --height: 30px;
-}
-
-[id='5'], [id='3'], [id='10'], [id='6'], [id='12'], [id='15']{
-  --width: 200px;
-  --height: 30px;
-}
-
-[id='13']{
-  --width: 220px;
-  --height: 30px;
-}
-
-[id='14']{
-  --width: 160px;
-  --height: 30px;
-}
-
-[id='16']{
-  --width: 185px;
-  --height: 30px;
-}
-
-#massReceiv, #massSend{
-  --width: 310px;
-  --height: 30px;
-}
-
-
-*{
-  padding: 0;
-  margin: 0;
-}
+// *{
+//   padding: 0;
+//   margin: 0;
+// }
 
 .wrapper{
   display: grid;
@@ -290,13 +243,15 @@ background-color: transparent;
 #buttons{
   position: absolute;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   min-width: 670px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 320px));
-  grid-template-rows: repeat(auto-fit, 40px);
-  justify-content: space-around;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 60px;
+  justify-items: center;
   align-items: center;
+  grid-column-gap: 20px;
   backface-visibility: hidden;
   z-index: 2;
 }
@@ -311,7 +266,7 @@ background-color: transparent;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  align-items: stretch;
   backface-visibility: hidden;
   transform: rotateY(180deg);
 }
@@ -329,10 +284,6 @@ background-color: transparent;
   height: 35px;
   padding: 0 5px;
   border-radius: 5px;
-}
-
-#buttons > .button{
-  margin: 15px 0;
 }
 
 .blick_btn, .blick_btn:focus{
@@ -486,18 +437,17 @@ background-color: transparent;
 }
 
 @keyframes loader{
-  
-  0%,100%{
+  0%{
     stroke-dashoffset: 942;
-
   }
   50%{
     stroke-dashoffset: 0;
-
   }
   50.1%{
     stroke-dashoffset: 1882;
-
+  }
+  100%{
+    stroke-dashoffset: 942;
   }
 }
 
