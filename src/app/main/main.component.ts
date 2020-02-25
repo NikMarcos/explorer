@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, NgZone  } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, NgZone, Pipe, PipeTransform  } from '@angular/core';
 import { AccountDataService } from '../services/account_service/account-data.service';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import * as $ from 'jquery';
-
 
 
 @Component({
@@ -17,8 +16,10 @@ export class MainComponent implements OnInit {
   transactions: Object[] = [];
   ids: Object = {};
   htmlToAdd: SafeHtml;
-  // clicked: boolean = false;
+  click = 14;
+  cliper = 'none'
   allTxs: string;
+  allTxsTest: Object[] = [];
 
   type1: string;
   typeDeposit: string;
@@ -58,6 +59,7 @@ export class MainComponent implements OnInit {
   countType15: number;
   countType16: number;
   countTypeElse: number;
+  current = 13;
 
 
 
@@ -89,9 +91,12 @@ export class MainComponent implements OnInit {
           worker.postMessage({transactions: this.transactions, assets: this.ids});
 
           worker.onmessage = ({ data }) => {
-            // this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(data);
             this.allTxs = data;
-            $('#goal').html(this.allTxs);
+            // *ngFor="let tx of allTxs"
+            this.allTxsTest.push({'id': 14, 'mister': 3777}, {'id': 13, 'mister': 4242})
+            
+            this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.allTxs);
+
             this.checkBtn.nativeElement.disabled = false;
             ////////////////////////////
             if (typeof Worker !== 'undefined') {
@@ -144,7 +149,7 @@ export class MainComponent implements OnInit {
 
                   this.filterTab.nativeElement.style.display = 'block';
 
-                  console.log(this.type7, this.countType7)
+                  // console.log(this.type7, this.countType7)
                 };
 
               }
@@ -175,6 +180,8 @@ export class MainComponent implements OnInit {
     console.log(elementId);
     switch (elementId) {
       case 'all':
+        this.click = 13;
+        this.current = 14;
         this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.allTxs);
         break;
       case 'deposit':
@@ -237,7 +244,7 @@ export class MainComponent implements OnInit {
 
   }
 
-  getDataByAddress(address: HTMLInputElement){
+  getDataByAddress(address: HTMLInputElement, amount: HTMLInputElement){
 
     this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(`
     <div class='loader'>
@@ -257,7 +264,8 @@ export class MainComponent implements OnInit {
   </div>`);
     this.checkBtn.nativeElement.disabled = true;
     this.filterTab.nativeElement.style.display = 'none';
-    this.AccountService.rawData(address.value);
+    // console.log(amount.value);
+    this.AccountService.rawData(address.value, parseInt(amount.value));
   }
 
   ngOnInit() {

@@ -39,9 +39,9 @@ function createWindow () {
   });
 
   win = new BrowserWindow({
-    width: 1700,
+    width: 1300,
     height: 690,
-    // resizable: false,
+    resizable: false,
     // frame: false,
     // transparent: true,
     'webPreferences':
@@ -169,7 +169,7 @@ ipcMain.on('address:add', function (event, reqAddress) {
   const options = {
     method: 'GET',
     // Закомментировать при переходе на старый API ////////////////////////////////////////
-    uri: `https://nodes.wavesnodes.com/debug/stateChanges/address/${address}/limit/100`,
+    uri: `https://nodes.wavesnodes.com/debug/stateChanges/address/${address}/limit/1000`,
     // Раскомментировать при переходе на старый API //////////////////////////////////////
     // uri: `https://nodes.wavesnodes.com/transactions/address/${address}/limit/100`,
     json: true
@@ -181,7 +181,7 @@ request(options)
       // Закомментировать при переходе на старый API ////////////////////////////////////
       array = response;
       console.log("First loop " + array.length);
-      if (array.length == 100 && array[array.length-1] != undefined) {
+      if (array.length == 1000 && array[array.length-1] != undefined) {
         let lastObject = array[array.length-1];
         let lastId = lastObject['id'];
         loopAPI(array, address, lastId);

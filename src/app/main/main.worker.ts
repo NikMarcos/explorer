@@ -38,6 +38,9 @@ addEventListener('message', ({ data }) => {
         } else if (nextObj['type'] == 3) {
           partofApi = `ids=${nextObj['assetId']}&`;
           assetIdArray.push(partofApi);
+        } else if (nextObj['type'] == 6) {
+          partofApi = `ids=${nextObj['assetId']}&`;
+          assetIdArray.push(partofApi);
         }
        }
        unique = [...new Set(assetIdArray)];

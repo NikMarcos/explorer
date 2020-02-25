@@ -135,7 +135,7 @@ addEventListener('message', ({ data }) => {
           <strong>Обмен: Купил </strong>${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${amountAsset}
           <strong> за </strong>
           ${spend.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${priceAsset}<br>
-          <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+          <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
           <div class="linkId"><strong> Id: </strong>
           <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
           </div>`;
@@ -150,7 +150,7 @@ addEventListener('message', ({ data }) => {
           <strong>Обмен: Продал </strong>${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${amountAsset}
           <strong> за </strong>
           ${spend.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${priceAsset}<br>
-          <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+          <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
           <div class="linkId"><strong> Id: </strong>
           <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
           </div>`;
@@ -167,7 +167,7 @@ addEventListener('message', ({ data }) => {
           <strong>Обмен: Купил </strong>${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${amountAsset}
           <strong> за </strong>
           ${spend.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${priceAsset}<br>
-          <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+          <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
           <div class="linkId"><strong> Id: </strong>
           <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
           </div>`;
@@ -182,7 +182,7 @@ addEventListener('message', ({ data }) => {
           <strong>Обмен: Продал </strong>${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${amountAsset}
           <strong> за </strong>
           ${spend.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${priceAsset}<br>
-          <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+          <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
           <div class="linkId"><strong> Id: </strong>
           <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
           </div>`;
@@ -210,7 +210,7 @@ addEventListener('message', ({ data }) => {
         }
         typeSend += `<strong>Вывод </strong>${(obj['amount']/amOfAsset).toLocaleString('en-US', {maximumSignificantDigits: 16})} ${listAssets[obj['assetId']][0]}
         <strong> на адрес </strong>${obj['recipient']}<br>
-        <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+        <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
         <div class="linkId"><strong> Id: </strong>
         <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
         </div>`;
@@ -249,7 +249,7 @@ addEventListener('message', ({ data }) => {
       id="${obj['recipient'].toLowerCase()}waves${new Date(obj['timestamp']).toLocaleDateString()}">
       <strong>Создание </strong>
       ${(obj['amount']/100000000).toLocaleString('en-US', {maximumSignificantDigits: 16})} Waves
-      <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+      <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -269,7 +269,7 @@ addEventListener('message', ({ data }) => {
           <strong>Вывод </strong>
           ${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} Waves
           <strong> на адрес </strong>${obj['recipient']}<br>
-          <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+          <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
           <div class="linkId"><strong> Id: </strong>
           <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
           </div>`;
@@ -286,7 +286,7 @@ addEventListener('message', ({ data }) => {
           <strong>Ввод </strong>
           ${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} Waves
           <strong> c адреса </strong>${obj['sender']}<br>
-          <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+          <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
           <div class="linkId"><strong> Id: </strong>
           <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
           </div>`;
@@ -312,7 +312,7 @@ addEventListener('message', ({ data }) => {
           }
           typeMassSend += `<strong>Массовая транзакция: Вывод </strong>
           ${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${listAssets[obj['assetId']][0]}<br>
-          <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+          <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
           <div class="linkId"><strong> Id: </strong>
           <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
           </div>`;
@@ -337,9 +337,9 @@ addEventListener('message', ({ data }) => {
             id="${obj['sender'].toLowerCase()}${listAssets[obj['assetId']][0].toLowerCase()}${new Date(obj['timestamp']).toLocaleDateString()}">`
           }
           typeMassReceive += `<strong>Массовая транзакция: Ввод </strong>
-          ${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${listAssets[obj['assetId']][0]}
+          ${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${listAssets[obj['assetId']][0]}<br>
           <strong> с адреса </strong>${obj['sender']}<br>
-          <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+          <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
           <div class="linkId"><strong> Id: </strong>
           <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
           </div>`;
@@ -353,9 +353,9 @@ addEventListener('message', ({ data }) => {
       countType8++;
       type8 += `<div class="8 bal ${obj['timestamp']}"
       id="waves${new Date(obj['timestamp']).toLocaleDateString()}">
-      <strong>Лизинг </strong>
+      <strong>Leasing </strong>
       ${(obj['amount']/100000000).toLocaleString('en-US', {maximumSignificantDigits: 16})} Waves<br>
-      <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+      <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div></div>`;
       // Раскомментировать после перехода на нормальную версию API с debug версии //////////////////
@@ -365,7 +365,7 @@ addEventListener('message', ({ data }) => {
       //   htmlDiv += ` (не отменен)</div></div>`;
       // }
       // csvTemp['date'] = `${new Date(obj['timestamp']).toLocaleString()}`;
-      // csvTemp['type'] = `Лизинг`;
+      // csvTemp['type'] = `Leasing`;
       // csvTemp['data'] = `${(obj['amount']/100000000).toLocaleString('en-US', {maximumSignificantDigits: 16})} Waves`;
       // csvAll.push(csvTemp);
     } else if (obj['type'] == 9) {
@@ -373,7 +373,7 @@ addEventListener('message', ({ data }) => {
       type9 += `<div class="9 bal ${obj['timestamp']}"
       id="waves${new Date(obj['timestamp']).toLocaleDateString()}">
       <strong>Отмена лизинга с ID:  </strong>${obj['leaseId']}<br>
-      <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+      <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -397,7 +397,7 @@ addEventListener('message', ({ data }) => {
       if (obj['script'] != null) {
         type3 += ` (скрипт-ассет)`;
       }
-      type3 += `<br><strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+      type3 += `<br><strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -418,7 +418,7 @@ addEventListener('message', ({ data }) => {
       }
       type6 += `<strong>Asset burning: </strong>
       ${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${listAssets[obj['assetId']][0]}<br>
-      <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+      <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -439,7 +439,7 @@ addEventListener('message', ({ data }) => {
       }
       type5 += `<strong>Довыпуск ассета: </strong>
       ${amount.toLocaleString('en-US', {maximumSignificantDigits: 16})} ${listAssets[obj['assetId']][0]}<br>
-      <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+      <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -452,7 +452,7 @@ addEventListener('message', ({ data }) => {
       type12 += `<div class="12 bal ${obj['timestamp']}"
       id="${new Date(obj['timestamp']).toLocaleDateString()}">
       <strong>Дата-транзакция </strong><br>
-      <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+      <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -465,7 +465,7 @@ addEventListener('message', ({ data }) => {
       type10 += `<div class="10 bal ${obj['timestamp']}"
       id="${new Date(obj['timestamp']).toLocaleDateString()}">
       <strong>Создание алиаса: </strong>${obj['alias']}<br>
-      <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+      <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -478,7 +478,7 @@ addEventListener('message', ({ data }) => {
       type13 += `<div class="13 bal ${obj['timestamp']}"
       id="${new Date(obj['timestamp']).toLocaleDateString()}">
       <strong>Скрипт-транзакция </strong><br>
-      <strong> Дата: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
+      <strong> Date: </strong>${new Date(obj['timestamp']).toLocaleString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -491,7 +491,7 @@ addEventListener('message', ({ data }) => {
         type14 += `<div class="14 bal ${obj['timestamp']}"
         id="${new Date(obj['timestamp']).toLocaleDateString()}">
         <strong>Отмена спонсорства для </strong>${listAssets[obj['assetId']][0]}<br>
-        <strong>Дата: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
+        <strong>Date: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
         <div class="linkId"><strong> Id: </strong>
         <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
         </div>`;
@@ -504,7 +504,7 @@ addEventListener('message', ({ data }) => {
         type14 += `<div class="14 bal ${obj['timestamp']}"
         id="${new Date(obj['timestamp']).toLocaleDateString()}">
         <strong>Активация спонсорства для </strong>${listAssets[obj['assetId']][0]}<br>
-        <strong>Дата: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
+        <strong>Date: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
         <div class="linkId"><strong> Id: </strong>
         <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
         </div>`;
@@ -518,7 +518,7 @@ addEventListener('message', ({ data }) => {
       type15 += `<div class="15 bal ${obj['timestamp']}"
       id="${new Date(obj['timestamp']).toLocaleDateString()}">
       <strong>Установка скрипта на ассет </strong><br>
-      <strong>Дата: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
+      <strong>Date: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -531,7 +531,7 @@ addEventListener('message', ({ data }) => {
       type16 += `<div class="16 bal ${obj['timestamp']}"
       id="${new Date(obj['timestamp']).toLocaleDateString()}">
       <strong>Вызов скрипта </strong><br>
-      <strong>Дата: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
+      <strong>Date: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;
@@ -544,7 +544,7 @@ addEventListener('message', ({ data }) => {
       typeElse += `<div class="else bal ${obj['timestamp']}"
       id="${new Date(obj['timestamp']).toLocaleDateString()}">
       <strong>Type: ${obj['type']}</strong><br>
-      <strong>Дата: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
+      <strong>Date: </strong> ${new Date(obj['timestamp']).toLocaleDateString()}<br>
       <div class="linkId"><strong> Id: </strong>
       <a href="https://wavesexplorer.com/tx/${obj['id']}" target="_blank">${obj['id']}</a></div>
       </div>`;

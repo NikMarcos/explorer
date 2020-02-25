@@ -1,11 +1,27 @@
+
 <div class="wrapper">
   <div class="content">
-    <div id="introText">Введите Waves адрес</div>
     <div class="searchData">
-      <input type="text" #addressInput="" id="searchDataInp" placeholder="Waves адрес" value="3PAYW61WKGU1PJcn8m9EdDEEgbabsi5DGgw"/>
-      <button class="blick_btn" type="button" #checkBtn="" (click)="getDataByAddress(addressInput)">Стартуем!</button>
+      <div class="address">
+        <div class="introText" [style.display]="click == 13 ? 'none' : 'block'">Waves address</div>
+        <input type="text" #addressInput="" id="searchDataInp" placeholder="Waves адрес" value="3PAYW61WKGU1PJcn8m9EdDEEgbabsi5DGgw"/>
+      </div>
+      <div class="txsAmount">
+        <div class="txsAmount__main">
+          <div class="amountTxsText">Last</div>
+          <input type="number" #amountTxs="" id="searchDataInp" value="100" max="100000"/>
+          <div class="amountTxsText">txs</div>
+        </div>
+        <div class="amountTxsText maxValueText">(by default 100 000)</div>
+      </div>
+      <button class="blick_btn search_button" type="button" #checkBtn="" (click)="getDataByAddress(addressInput, amountTxs)">Стартуем!</button>
     </div>
-    <div id="address"></div>
+    <div id="goal" *ngFor="let tx of allTxsTest">
+      <div class="main" [hidden]="current != tx['id']">
+        {{ tx['mister'] }}
+        {{ tx['id'] }}
+      </div>
+    </div>
     <div id="goal" [innerHtml]="htmlToAdd"></div>
   </div>
   <div class="filter" #filter="">

@@ -18,20 +18,23 @@ export class AccountDataService {
 
   constructor(private http: HttpClient) { }
 
-  getRawData(address: string, lastId = "0"){
-    return this.http.get(`https://nodes.wavesnodes.com/debug/stateChanges/address/${address}/limit/1000?after=${lastId}`)
+  getRawData(address: string, amount: string, lastId = "0"){
+    return this.http.get(`https://nodes.wavesnodes.com/debug/stateChanges/address/${address}/limit/${amount}?after=${lastId}`)
   }
   getAssetsData(items: string){
     return this.http.get(`https://api.wavesplatform.com/v0/assets?${items}`)
   }
 
-  rawData(address: string, lastId?: string): any {
-    this.getRawData(address, lastId).subscribe((data: Object[]) => {
+  rawData(address: string, amount: number, lastId?: string): any {
+    let amountOfTxs = amount;
+    let amountToRawData = amountOfTxs < 1000 ? amountOfTxs.toString() : '1000'
+    this.getRawData(address, amountToRawData, lastId).subscribe((data: Object[]) => {
+      this.commonArray.push(...data);
       console.log(data.length);
-      if(data.length && data.length < 100000){
-        this.commonArray.push(...data);
+      console.log(amountOfTxs);
+      if(data.length && data.length < amountOfTxs){
         let lastId = data[data.length-1]['id'];
-        this.rawData(address, lastId);
+        this.rawData(address, amountOfTxs, lastId);
       } else {
         this.commonArray.unshift(address);
         this.allTransactions.next(this.commonArray);
