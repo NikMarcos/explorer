@@ -3,24 +3,21 @@
   <div class="content">
     <div class="searchData">
       <div class="address">
-        <div class="introText" [style.display]="click == 13 ? 'none' : 'block'">Waves address</div>
+        <div class="introText">Waves address</div>
         <input type="text" #addressInput="" id="searchDataInp" placeholder="Waves адрес" value="3PAYW61WKGU1PJcn8m9EdDEEgbabsi5DGgw"/>
       </div>
       <div class="txsAmount">
         <div class="txsAmount__main">
           <div class="amountTxsText">Last</div>
-          <input type="number" #amountTxs="" id="searchDataInp" value="100" max="100000"/>
+          <input type="number" #amountTxs="" id="searchDataInp" value="1000" max="100000"/>
           <div class="amountTxsText">txs</div>
         </div>
-        <div class="amountTxsText maxValueText">(by default 100 000)</div>
+        <div class="amountTxsText maxValueText">(max 100 000)</div>
       </div>
-      <button class="blick_btn search_button" type="button" #checkBtn="" (click)="getDataByAddress(addressInput, amountTxs)">Стартуем!</button>
+      <button class="blick_btn search_button" type="button" #checkBtn="" (click)="getDataByAddress(addressInput, amountTxs)" [disabled]="amountTxs.value &lt; 10">Стартуем!</button>
     </div>
-    <div id="goal" *ngFor="let tx of allTxsTest">
-      <div class="main" [hidden]="current != tx['id']">
-        {{ tx['mister'] }}
-        {{ tx['id'] }}
-      </div>
+    <div id="goal">
+      <div *ngFor="let tx of allTxsTest" [hidden]="(current != tx['hidden'][1] &amp;&amp; current != tx['hidden'][0])" [ngClass]="tx['class']" [id]="tx['id']"><strong>{{ tx['string1'][0] }} </strong>{{ tx['string1'][1] }} {{ tx['string1'][2] }} <strong>{{ tx['string2'][0] }} </strong>{{ tx['string2'][1] }} {{ tx['string2'][2] }}<br/><strong>{{ tx['string3'][0] }} </strong>{{ tx['string3'][1] }}<br/><strong>{{ tx['string4'][0] }} </strong><a href="https://wavesexplorer.com/tx/{{ tx['string4'][1] }}" target="_blank">{{ tx['string4'][1] }}</a></div>
     </div>
     <div id="goal" [innerHtml]="htmlToAdd"></div>
   </div>
@@ -43,84 +40,84 @@
     </div>
     <div class="buttons-form">
       <div id="buttons">
-        <ng-container *ngIf="allTxs">
+        <ng-container *ngIf="countAllTxs">
           <button class="button" type="button" id="balance" #balance="" (click)="test(balance)"><span class="bal-btn">Account balance</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="allTxs">
+        <ng-container *ngIf="countAllTxs">
           <button class="button clickMe" type="button" id="all" #all="" (click)="test(all)"><span class="all-btn">All ( {{ countAllTxs }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="typeDeposit">
+        <ng-container *ngIf="countTypeDeposit">
           <button class="button clickMe" type="button" id="deposit" #deposit="" (click)="test(deposit)"><span class="dep-btn">Deposit ( {{ countTypeDeposit }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="typeSend">
+        <ng-container *ngIf="countTypeSend">
           <button class="button clickMe" type="button" id="send" #send="" (click)="test(send)"><span class="send-btn">Withdraw ( {{ countTypeSend }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type7">
+        <ng-container *ngIf="countType7">
           <button class="button clickMe" type="button" id="7" #id7="" (click)="test(id7)"><span class="exch-btn">Trading ( {{ countType7 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type8">
+        <ng-container *ngIf="countType8">
           <button class="button clickMe" type="button" id="8" #id8="" (click)="test(id8)"><span class="leasing-btn">Leasing ( {{ countType8 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type9">
+        <ng-container *ngIf="countType9">
           <button class="button clickMe" type="button" id="9" #id9="" (click)="test(id9)"><span class="cancLeas-btn">Canceled leasing ( {{ countType9 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="typeMassSend">
+        <ng-container *ngIf="countTypeMassSend">
           <button class="button clickMe" type="button" id="massSend" #massSend="" (click)="test(massSend)"><span class="massSend-btn">Mass withdrawing ( {{ countTypeMassSend }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="typeMassReceive">
+        <ng-container *ngIf="countTypeMassReceive">
           <button class="button clickMe" type="button" id="massReceiv" #balance="" (click)="test(balance)"><span class="massReceive-btn">Mass depositing ( {{ countTypeMassReceive }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type3">
+        <ng-container *ngIf="countType3">
           <button class="button clickMe" type="button" id="3" #id3="" (click)="test(id3)"><span class="assetCreation-btn">Asset creation ( {{ countType3 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type5">
+        <ng-container *ngIf="countType5">
           <button class="button clickMe" type="button" id="5" #id5="" (click)="test(id5)"><span class="assetReissue-btn">Asset reissuing ( {{ countType5 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type6">
+        <ng-container *ngIf="countType6">
           <button class="button clickMe" type="button" id="6" #id6="" (click)="test(id6)"><span class="burn-btn">Asset burning ( {{ countType6 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
@@ -134,49 +131,49 @@
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type12">
+        <ng-container *ngIf="countType12">
           <button class="button clickMe" type="button" id="12" #id12="" (click)="test(id12)"><span class="data-btn">Data transaction ( {{ countType12 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type13">
+        <ng-container *ngIf="countType13">
           <button class="button clickMe" type="button" id="13" #id13="" (click)="test(id13)"><span class="script-btn">Script transaction ( {{ countType13 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type15">
+        <ng-container *ngIf="countType15">
           <button class="button clickMe" type="button" id="15" #id15="" (click)="test(id15)"><span class="assetScript-btn">Asset script ( {{ countType15 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type14">
+        <ng-container *ngIf="countType14">
           <button class="button clickMe" type="button" id="14" #id14="" (click)="test(id14)"><span class="sponsor-btn">Sponsorship ( {{ countType14 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type16">
+        <ng-container *ngIf="countType16">
           <button class="button clickMe" type="button" id="16" #id16="" (click)="test(id16)"><span class="scriptCall-btn">Invoke script ( {{ countType16 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="type1">
-          <button class="button clickMe" type="button" id="1" #id1="" (click)="test(id1)"><span class="wavesIss-btn">Waves issuing ( {{ countType1 }} )</span>
+        <ng-container *ngIf="countType1">
+          <button class="button clickMe" type="button" id="1" #id1="" (click)="test(id1)"><span class="wavesIss-btn">Waves creation ( {{ countType1 }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>
           </button>
         </ng-container>
-        <ng-container *ngIf="typeElse">
+        <ng-container *ngIf="countTypeElse">
           <button class="button clickMe" type="button" id="else" #idElse="" (click)="test(idElse)"><span class="else-btn">Else ( {{ countTypeElse }} )</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>

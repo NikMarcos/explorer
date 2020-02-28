@@ -16,8 +16,6 @@ export class MainComponent implements OnInit {
   transactions: Object[] = [];
   ids: Object = {};
   htmlToAdd: SafeHtml;
-  click = 14;
-  cliper = 'none'
   allTxs: string;
   allTxsTest: Object[] = [];
 
@@ -59,14 +57,16 @@ export class MainComponent implements OnInit {
   countType15: number;
   countType16: number;
   countTypeElse: number;
-  current = 13;
+  current = 'all';
 
 
 
   constructor(private AccountService: AccountDataService, private sanitizer: DomSanitizer, private zone: NgZone) {
     this.AccountService.allTransactions.subscribe((trans: Object[]) => {
+      console.log(trans);
       this.transactions = trans;
-      this.countAllTxs = this.transactions.length - 1
+      this.countAllTxs = this.transactions.length > 0 ? this.transactions.length - 1 : 0;
+
       // console.log(this.transactions);
       if (typeof Worker !== 'undefined') {
         // Create a new
@@ -91,79 +91,48 @@ export class MainComponent implements OnInit {
           worker.postMessage({transactions: this.transactions, assets: this.ids});
 
           worker.onmessage = ({ data }) => {
-            this.allTxs = data;
+            // this.allTxs = data;
+            this.allTxsTest = data[0];
+            this.current = 'all';
+            let counts = data[1];
+            this.zone.run(() => {
+            this.countType1 = counts['countType1'];
+            this.countTypeDeposit = counts['countTypeDeposit'];
+            this.countTypeSend = counts['countTypeSend'];
+            this.countType7 = counts['countType7'];
+            this.countType8 = counts['countType8'];
+            this.countType9 = counts['countType9'];
+            this.countTypeMassSend = counts['countTypeMassSend'];
+            this.countTypeMassReceive = counts['countTypeMassReceive'];
+            this.countType3 = counts['countType3'];
+            this.countType5 = counts['countType5'];
+            this.countType6 = counts['countType6'];
+            this.countType10 = counts['countType10'];
+            this.countType12 = counts['countType12'];
+            this.countType13 = counts['countType13'];
+            this.countType14 = counts['countType14'];
+            this.countType15 = counts['countType15'];
+            this.countType16 = counts['countType16'];
+            this.countTypeElse = counts['countTypeElse'];
+            });
+
             // *ngFor="let tx of allTxs"
-            this.allTxsTest.push({'id': 14, 'mister': 3777}, {'id': 13, 'mister': 4242})
-            
-            this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.allTxs);
+            // this.allTxsTest = []
+            // this.allTxsTest.push({'id': 13, 'mister': 4242})
+
+            // this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.allTxs);
 
             this.checkBtn.nativeElement.disabled = false;
-            ////////////////////////////
-            if (typeof Worker !== 'undefined') {
-              // Create a new
-              const sepWorker = new Worker('./separate-txs.worker', { type: 'module' });
-              if(this.allTxs){
 
-                sepWorker.postMessage({transactions: this.transactions, assets: this.ids});
-
-                sepWorker.onmessage = ({ data }) => {
-                  this.type1 = data['id1'][0];
-                  this.typeDeposit = data['idDeposit'][0];
-                  this.typeSend = data['idSend'][0];
-                  this.type7 = data['id7'][0];
-                  this.type8 = data['id8'][0];
-                  this.type9 = data['id9'][0];
-                  this.typeMassSend = data['idMassSend'][0];
-                  this.typeMassReceive = data['idMassDeposit'][0];
-                  this.type3 = data['id3'][0];
-                  this.type5 = data['id5'][0];
-                  this.type6 = data['id6'][0];
-                  this.type10 = data['id10'][0];
-                  this.type12 = data['id12'][0];
-                  this.type13 = data['id13'][0];
-                  this.type14 = data['id14'][0];
-                  this.type15 = data['id15'][0];
-                  this.type16 = data['id16'][0];
-                  this.typeElse = data['idElse'][0];
-
-                  this.zone.run(() => {
-                  this.countType1 = data['id1'][1];
-                  this.countTypeDeposit = data['idDeposit'][1];
-                  this.countTypeSend = data['idSend'][1];
-                  this.countType7 = data['id7'][1];
-                  this.countType8 = data['id8'][1];
-                  this.countType9 = data['id9'][1];
-                  this.countTypeMassSend = data['idMassSend'][1];
-                  this.countTypeMassReceive = data['idMassDeposit'][1];
-                  this.countType3 = data['id3'][1];
-                  this.countType5 = data['id5'][1];
-                  this.countType6 = data['id6'][1];
-                  this.countType10 = data['id10'][1];
-                  this.countType12 = data['id12'][1];
-                  this.countType13 = data['id13'][1];
-                  this.countType14 = data['id14'][1];
-                  this.countType15 = data['id15'][1];
-                  this.countType16 = data['id16'][1];
-                  this.countTypeElse = data['idElse'][1];
-                  });
-
-                  this.filterTab.nativeElement.style.display = 'block';
-
-                  // console.log(this.type7, this.countType7)
-                };
-
-              }
-            } else {
-              // Web Workers are not supported in this environment.
-              // You should add a fallback so that your program still executes correctly.
-            }
-            /////////////////////
-            // this.filterTab.nativeElement.style.display = 'block';
+            // if (typeof Worker !== 'undefined') {
+            //   const sepWorker = new Worker('./separate-txs.worker', { type: 'module' });
+            //   if(this.allTxs){
+            //     sepWorker.postMessage({transactions: this.transactions, assets: this.ids});
+            //     sepWorker.onmessage = ({ data }) => { };
+            //   }
+            // }
           };
         }
-      } else {
-        // Web Workers are not supported in this environment.
-        // You should add a fallback so that your program still executes correctly.
       }
     })
 
@@ -180,63 +149,69 @@ export class MainComponent implements OnInit {
     console.log(elementId);
     switch (elementId) {
       case 'all':
-        this.click = 13;
-        this.current = 14;
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.allTxs);
+        this.current = 'all';
         break;
       case 'deposit':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.typeDeposit);
+        this.current = 'deposit';
         break;
       case 'send':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.typeSend);
+        this.current = 'send';
         break;
       case '7':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type7);
+        this.current = '7';
         break;
       case '8':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type8);
+        this.current = '8';
         break;
       case '9':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type9);
+        this.current = '9';
         break;
       case 'massSend':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.typeMassSend);
+        this.current = 'massSend';
         break;
       case 'massReceiv':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.typeMassReceive);
+        this.current = 'massReceiv';
         break;
       case '3':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type3);
+        this.current = '3';
         break;
       case '5':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type5);
+        this.current = '5';
         break;
       case '6':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type6);
+        this.current = '6';
         break;
       case '10':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type10);
+      this.current = '10';
+
         break;
       case '12':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type12);
+      this.current = '12';
+
         break;
       case '13':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type13);
+      this.current = '13';
+
         break;
       case '15':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type15);
+      this.current = '15';
+
         break;
       case '14':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type14);
+      this.current = '14';
+
         break;
       case '16':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type16);
+      this.current = '16';
+
         break;
       case '1':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.type1);
+      this.current = '1';
+
         break;
       case 'else':
-        this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.typeElse);
+      this.current = 'else';
+
         break;
       default:
         alert( "Нет таких значений" );
@@ -246,25 +221,23 @@ export class MainComponent implements OnInit {
 
   getDataByAddress(address: HTMLInputElement, amount: HTMLInputElement){
 
-    this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(`
-    <div class='loader'>
-      <div class="sticks">
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-        <div class="stick"></div>
-      </div>
-      <svg>
-        <circle cx='50%' cy='50%' r='150'></circle>
-      </svg>
-  </div>`);
+  //   this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(`
+  //   <div class='loader'>
+  //     <div class="sticks">
+  //       <div class="stick"></div>
+  //       <div class="stick"></div>
+  //       <div class="stick"></div>
+  //       <div class="stick"></div>
+  //       <div class="stick"></div>
+  //       <div class="stick"></div>
+  //       <div class="stick"></div>
+  //       <div class="stick"></div>
+  //     </div>
+  //     <svg>
+  //       <circle cx='50%' cy='50%' r='150'></circle>
+  //     </svg>
+  // </div>`);
     this.checkBtn.nativeElement.disabled = true;
-    this.filterTab.nativeElement.style.display = 'none';
-    // console.log(amount.value);
     this.AccountService.rawData(address.value, parseInt(amount.value));
   }
 
