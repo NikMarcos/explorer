@@ -2,6 +2,9 @@ import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, NgZone, Pi
 import { AccountDataService } from '../services/account_service/account-data.service';
 import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import * as $ from 'jquery';
+// const { ipcRenderer, remote } = (<any>window).require('electron');
+
+
 
 
 @Component({
@@ -11,13 +14,18 @@ import * as $ from 'jquery';
   encapsulation: ViewEncapsulation.None,
 })
 export class MainComponent implements OnInit {
+  // ipc: IpcRenderer = (<any>window).require('electron').ipcRenderer;
   @ViewChild("filter", {static: false}) filterTab: ElementRef;
   @ViewChild("checkBtn", {static: false}) checkBtn: ElementRef;
+  @ViewChild("searchDataInp", {static: false}) searchDataInp: ElementRef;
   transactions: Object[] = [];
   ids: Object = {};
   htmlToAdd: SafeHtml;
   allTxs: string;
   allTxsTest: Object[] = [];
+  balanceBtn: Object[];
+  balances: Object[];
+  showBalance: boolean = true;
 
   type1: string;
   typeDeposit: string;
@@ -58,18 +66,17 @@ export class MainComponent implements OnInit {
   countType16: number;
   countTypeElse: number;
   current = 'all';
+  // BrowserWindow: any = window.require('electron').BrowserWindow;
 
 
 
   constructor(private AccountService: AccountDataService, private sanitizer: DomSanitizer, private zone: NgZone) {
+
     this.AccountService.allTransactions.subscribe((trans: Object[]) => {
-      console.log(trans);
       this.transactions = trans;
       this.countAllTxs = this.transactions.length > 0 ? this.transactions.length - 1 : 0;
 
-      // console.log(this.transactions);
       if (typeof Worker !== 'undefined') {
-        // Create a new
         const worker = new Worker('./main.worker', { type: 'module' });
         worker.postMessage(trans);
         worker.onmessage = ({ data }) => {
@@ -77,11 +84,14 @@ export class MainComponent implements OnInit {
             this.AccountService.listIds(data);
           }
         };
-      } else {
-        // Web Workers are not supported in this environment.
-        // You should add a fallback so that your program still executes correctly.
       }
     })
+    this.AccountService.balances.subscribe((data: Object[]) => {
+      this.zone.run(() => {
+        this.balances = data;
+      });
+    });
+
 
     this.AccountService.allAssets.subscribe((trans: Object) => {
       this.ids = trans;
@@ -116,13 +126,13 @@ export class MainComponent implements OnInit {
             this.countTypeElse = counts['countTypeElse'];
             });
 
-            // *ngFor="let tx of allTxs"
-            // this.allTxsTest = []
-            // this.allTxsTest.push({'id': 13, 'mister': 4242})
-
-            // this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(this.allTxs);
-
             this.checkBtn.nativeElement.disabled = false;
+
+
+            this.AccountService.balance(this.transactions[0]);
+
+
+
 
             // if (typeof Worker !== 'undefined') {
             //   const sepWorker = new Worker('./separate-txs.worker', { type: 'module' });
@@ -144,9 +154,12 @@ export class MainComponent implements OnInit {
 
   }
 
+  // changeBalance(){
+  //   this.showBalance = true;
+  // }
+
   test(balance: HTMLInputElement){
     let elementId = balance.id;
-    console.log(elementId);
     switch (elementId) {
       case 'all':
         this.current = 'all';
@@ -182,45 +195,45 @@ export class MainComponent implements OnInit {
         this.current = '6';
         break;
       case '10':
-      this.current = '10';
-
+        this.current = '10';
         break;
       case '12':
-      this.current = '12';
-
+        this.current = '12';
         break;
       case '13':
-      this.current = '13';
-
+        this.current = '13';
         break;
       case '15':
-      this.current = '15';
-
+        this.current = '15';
         break;
       case '14':
-      this.current = '14';
-
+        this.current = '14';
         break;
       case '16':
-      this.current = '16';
-
+        this.current = '16';
         break;
       case '1':
-      this.current = '1';
-
+        this.current = '1';
         break;
       case 'else':
-      this.current = 'else';
-
+        this.current = 'else';
         break;
       default:
-        alert( "Нет таких значений" );
+        this.showBalance = false;
     }
 
   }
 
-  getDataByAddress(address: HTMLInputElement, amount: HTMLInputElement){
+  currentTrx(){
+    this.current = 'all';
+  }
 
+  clearSearch(){
+    this.searchDataInp.nativeElement.value = '';
+  }
+
+  getDataByAddress(address: HTMLInputElement, amount: HTMLInputElement){
+    this.balances = [];
   //   this.htmlToAdd = this.sanitizer.bypassSecurityTrustHtml(`
   //   <div class='loader'>
   //     <div class="sticks">

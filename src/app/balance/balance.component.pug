@@ -1,0 +1,15 @@
+.balancer([hidden]="showBal") 
+  .assetSearch
+    .form-area
+      .title Asset name
+      .form
+        input(type="text", #assetName="" name="filterName" id="term" autofocus, (keyup)="0")
+    .cross((click)="closeBalance()")
+      svg
+        path(d="M0 0 L 20 20 M20 0 L 0 20" stroke="black" stroke-width="3")
+  .list
+    .asset(*ngFor="let asset of (balances | assetPipe: assetName.value)", class="{{ asset['class'] }}")
+      | {{ asset['balance'] }} {{ asset['issueTransaction']['name'] }} 
+      a(href="https://wavesexplorer.com/tx/{{ asset['assetId'] }}", target="_blank" ) {{ asset['assetId'] }} 
+      span(*ngIf="asset['class'] == 'spam'")
+        | (Suspicious)

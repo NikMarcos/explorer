@@ -1,3 +1,4 @@
+app-balance([showBal]="showBalance", [balances]="balances", (closeBal)="showBalance = true")
 .wrapper
   .content
     .searchData
@@ -7,13 +8,13 @@
       .txsAmount
         .txsAmount__main
           .amountTxsText Last
-          input(type="number", #amountTxs="", id="searchDataInp" value='1000' max="100000")
+          input(type="number", #amountTxs="", id="searchDataInp" value='10' max="100000")
           .amountTxsText txs
         .amountTxsText.maxValueText (max 100 000)
-      button(type="button", class="blick_btn search_button", #checkBtn="", (click)="getDataByAddress(addressInput, amountTxs)", [disabled]="amountTxs.value < 10") Стартуем!
+      button(type="button", class="blick_btn search_button", #checkBtn="", (click)="getDataByAddress(addressInput, amountTxs)", [disabled]="amountTxs.value < 10") Start!
     //- #address
     #goal
-      div(*ngFor="let tx of allTxsTest", [hidden]="(current != tx['hidden'][1] && current != tx['hidden'][0])", [ngClass]="tx['class']", [id]="tx['id']")
+      div(*ngFor="let tx of allTxsTest | transactions: searchDataInp.value", [hidden]="(current != tx['hidden'][1] && current != tx['hidden'][0])", [ngClass]="tx['class']", [id]="tx['id']")
         strong
           | {{ tx['string1'][0] }} 
         | {{ tx['string1'][1] }} {{ tx['string1'][2] }} 
@@ -32,10 +33,10 @@
   .filter(#filter="")
       #search
         .searchData
-          .cross
+          .cross((click)="clearSearch()")
             svg(width="12" height="12")
               path(d="M0 0 L 12 12 M12 0 L 0 12" stroke="black" stroke-width="2")
-          input(type="text" id="searchDataInp" class='inspectInput' placeholder="Данные для поиска")
+          input(type="text", #searchDataInp="", id="searchDataInp" class='inspectInput' placeholder="Данные для поиска", (keyup)="currentTrx()")
           button(type="button" class="blick_btn inspectBtn") Искать
           button(type="button" class="blick_btn" id='additionalMenu')
             .burg
@@ -43,8 +44,8 @@
             .burg
       .buttons-form
         #buttons
-          ng-container(*ngIf="countAllTxs")
-            button(type="button" class='button' id='balance', #balance="", (click)="test(balance)")
+          ng-container(*ngIf="balances.length > 0")
+            button(type="button" class='button' id='balance', #balance="", (click)="test(balance)", [disabled]="balances.length == 0")
               span(class='bal-btn') Account balance
               svg(class='svg_button')
                 rect(class='rect_button')

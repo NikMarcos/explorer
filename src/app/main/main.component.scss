@@ -132,18 +132,6 @@ button:focus{
   opacity: 0.5;
 }
 
-
-
-.cross{
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  top: 10.5%;
-  right: 20%;
-  opacity: 0.7;
-  cursor: pointer;
-}
-
 #search{
   position: relative;
   height: 8%;
@@ -160,6 +148,15 @@ button:focus{
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  .cross{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 9%;
+    right: 19%;
+    opacity: 0.7;
+    cursor: pointer;
+  }
 }
 
 .address{
@@ -230,9 +227,9 @@ button:focus{
   margin-right: 5px;
 }
 
-[hidden] {
-  display: none !important;
-}
+// [hidden] {
+//   display: none !important;
+// }
 
 
 .amountTxsText{
@@ -243,12 +240,6 @@ button:focus{
 .maxValueText{
   font-size: 10px;
 }
-
-// @media screen and (min-width: 1000px) {
-//   #introText{
-//     display: none;
-//   }
-// }
 
 #additionalMenu{
   width: 40px;
@@ -263,24 +254,26 @@ button:focus{
 
 }
 
-/* .content scroll-bar styles */
-::-webkit-scrollbar {
-background-color: transparent;
-width: 8px;
-}
-::-webkit-scrollbar-track {
-background-color: transparent;
-}
-::-webkit-scrollbar-track-piece {
-background-color: transparent;
-}
-::-webkit-scrollbar-thumb {
-background-color: #E0F6BD;
-border: 0px;
-}
-::-webkit-scrollbar-corner {
-background-color: transparent;
-}
+/* .content scroll-bar styles *//////////
+// ::-webkit-scrollbar {
+// background-color: transparent;
+// width: 8px;
+// }
+// ::-webkit-scrollbar-track {
+// background-color: transparent;
+// }
+// ::-webkit-scrollbar-track-piece {
+// background-color: transparent;
+// }
+// ::-webkit-scrollbar-thumb {
+// background-color: #E0F6BD;
+// border: 0px;
+// }
+// ::-webkit-scrollbar-corner {
+// background-color: transparent;
+// }
+///////////////////////////////////////
+
 
 .searchDataBtn, .searchDataBtn:active, .searchDataBtn:focus{
   border: 1px solid black;

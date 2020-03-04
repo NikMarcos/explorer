@@ -1,1 +1,19 @@
-<p>balance works!</p>
+
+<div class="balancer" [hidden]="showBal"> 
+  <div class="assetSearch">
+    <div class="form-area">
+      <div class="title">Asset name</div>
+      <div class="form">
+        <input type="text" #assetName="" name="filterName" id="term" autofocus="autofocus" (keyup)="0"/>
+      </div>
+    </div>
+    <div class="cross" (click)="closeBalance()">
+      <svg>
+        <path d="M0 0 L 20 20 M20 0 L 0 20" stroke="black" stroke-width="3"></path>
+      </svg>
+    </div>
+  </div>
+  <div class="list">
+    <div class="asset {{ asset['class'] }}" *ngFor="let asset of (balances | assetPipe: assetName.value)">{{ asset['balance'] }} {{ asset['issueTransaction']['name'] }} <a href="https://wavesexplorer.com/tx/{{ asset['assetId'] }}" target="_blank">{{ asset['assetId'] }} </a><span *ngIf="asset['class'] == 'spam'">(Suspicious)</span></div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 
+<app-balance [showBal]="showBalance" [balances]="balances" (closeBal)="showBalance = true"></app-balance>
 <div class="wrapper">
   <div class="content">
     <div class="searchData">
@@ -9,27 +10,27 @@
       <div class="txsAmount">
         <div class="txsAmount__main">
           <div class="amountTxsText">Last</div>
-          <input type="number" #amountTxs="" id="searchDataInp" value="1000" max="100000"/>
+          <input type="number" #amountTxs="" id="searchDataInp" value="10" max="100000"/>
           <div class="amountTxsText">txs</div>
         </div>
         <div class="amountTxsText maxValueText">(max 100 000)</div>
       </div>
-      <button class="blick_btn search_button" type="button" #checkBtn="" (click)="getDataByAddress(addressInput, amountTxs)" [disabled]="amountTxs.value &lt; 10">Стартуем!</button>
+      <button class="blick_btn search_button" type="button" #checkBtn="" (click)="getDataByAddress(addressInput, amountTxs)" [disabled]="amountTxs.value &lt; 10">Start!</button>
     </div>
     <div id="goal">
-      <div *ngFor="let tx of allTxsTest" [hidden]="(current != tx['hidden'][1] &amp;&amp; current != tx['hidden'][0])" [ngClass]="tx['class']" [id]="tx['id']"><strong>{{ tx['string1'][0] }} </strong>{{ tx['string1'][1] }} {{ tx['string1'][2] }} <strong>{{ tx['string2'][0] }} </strong>{{ tx['string2'][1] }} {{ tx['string2'][2] }}<br/><strong>{{ tx['string3'][0] }} </strong>{{ tx['string3'][1] }}<br/><strong>{{ tx['string4'][0] }} </strong><a href="https://wavesexplorer.com/tx/{{ tx['string4'][1] }}" target="_blank">{{ tx['string4'][1] }}</a></div>
+      <div *ngFor="let tx of allTxsTest | transactions: searchDataInp.value" [hidden]="(current != tx['hidden'][1] &amp;&amp; current != tx['hidden'][0])" [ngClass]="tx['class']" [id]="tx['id']"><strong>{{ tx['string1'][0] }} </strong>{{ tx['string1'][1] }} {{ tx['string1'][2] }} <strong>{{ tx['string2'][0] }} </strong>{{ tx['string2'][1] }} {{ tx['string2'][2] }}<br/><strong>{{ tx['string3'][0] }} </strong>{{ tx['string3'][1] }}<br/><strong>{{ tx['string4'][0] }} </strong><a href="https://wavesexplorer.com/tx/{{ tx['string4'][1] }}" target="_blank">{{ tx['string4'][1] }}</a></div>
     </div>
     <div id="goal" [innerHtml]="htmlToAdd"></div>
   </div>
   <div class="filter" #filter="">
     <div id="search">
       <div class="searchData">
-        <div class="cross">
+        <div class="cross" (click)="clearSearch()">
           <svg width="12" height="12">
             <path d="M0 0 L 12 12 M12 0 L 0 12" stroke="black" stroke-width="2"></path>
           </svg>
         </div>
-        <input class="inspectInput" type="text" id="searchDataInp" placeholder="Данные для поиска"/>
+        <input class="inspectInput" type="text" #searchDataInp="" id="searchDataInp" placeholder="Данные для поиска" (keyup)="currentTrx()"/>
         <button class="blick_btn inspectBtn" type="button">Искать</button>
         <button class="blick_btn" type="button" id="additionalMenu">
           <div class="burg"></div>
@@ -40,8 +41,8 @@
     </div>
     <div class="buttons-form">
       <div id="buttons">
-        <ng-container *ngIf="countAllTxs">
-          <button class="button" type="button" id="balance" #balance="" (click)="test(balance)"><span class="bal-btn">Account balance</span>
+        <ng-container *ngIf="balances.length &gt; 0">
+          <button class="button" type="button" id="balance" #balance="" (click)="test(balance)" [disabled]="balances.length == 0"><span class="bal-btn">Account balance</span>
             <svg class="svg_button">
               <rect class="rect_button"></rect>
             </svg>

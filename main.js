@@ -39,14 +39,16 @@ function createWindow () {
   });
 
   win = new BrowserWindow({
-    width: 1300,
+    width: 1400,
     height: 690,
     resizable: false,
     // frame: false,
     // transparent: true,
     'webPreferences':
-    {"nodeIntegration": true,
-    "webSecurity": true}
+    {
+      "nodeIntegration": true,
+      "webSecurity": true
+    }
   })
 
   // and load the index.html of the app.
@@ -293,3 +295,18 @@ ipcMain.on('alias:add', function (event, address) {
         win.webContents.send('aliases:add', response);
       });
   });
+
+  function openModal(){
+      // const { BrowserWindow } = require('electron');
+      let modal = new BrowserWindow({ parent: win, modal: true, show: false })
+      modal.loadURL('file://${__dirname}/dist/${app.name}/index.html#/balance')
+      // win.loadURL(`file://${__dirname}/dist/${app.name}/index.html`);
+
+      modal.once('ready-to-show', () => {
+        modal.show()
+      })
+    }
+
+    ipcMain.on('openModal', (event, arg) => {
+      openModal()
+    })

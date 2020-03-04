@@ -8,13 +8,17 @@ import { AppComponent } from './app.component';
 import { BalanceComponent } from './balance/balance.component';
 import { MainComponent } from './main/main.component';
 import { AccountDataService } from './services/account_service/account-data.service';
+import { AssetPipePipe } from './asset-pipe.pipe';
+import { TransactionsPipe } from './transactions.pipe';
 // import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     BalanceComponent,
-    MainComponent
+    MainComponent,
+    AssetPipePipe,
+    TransactionsPipe
   ],
   imports: [
     BrowserModule,
